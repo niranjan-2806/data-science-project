@@ -1,0 +1,97 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net: Default-deny all unmapped collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['userId', 'username', 'email', 'createdAt'])
+        && data.keys().hasOnly(['userId', 'username', 'email', 'displayName', 'phoneNumber', 'handle', 'channelName', 'bio', 'role', 'createdAt', 'lastLogin'])
+        && data.userId is string && data.userId == request.auth.uid
+        && data.username is string && data.username.size() >= 3 && data.username.size() <= 50
+        && data.email is string && data.email.size() <= 150
+        && (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 100))
+        && (!('phoneNumber' in data) || (data.phoneNumber is string && data.phoneNumber.size() <= 30))
+        && (!('handle' in data) || (data.handle is string && data.handle.size() <= 50))
+        && (!('channelName' in data) || (data.channelName is string && data.channelName.size() <= 100))
+        && (!('bio' in data) || (data.bio is string && data.bio.size() <= 500))
+        && (!('role' in data) || (data.role in ['analyst', 'researcher', 'viewer']))
+        && data.createdAt is string && data.createdAt.size() <= 50
+        && (!('lastLogin' in data) || (data.lastLogin is string && data.lastLogin.size() <= 50));
+    }
+
+    function isValidBookmark(data, userId) {
+      return data.keys().hasAll(['bookmarkId', 'userId', 'videoId', 'savedAt'])
+        && data.keys().hasOnly(['bookmarkId', 'userId', 'videoId', 'episodeTitle', 'notes', 'savedAt'])
+        && data.bookmarkId is string && data.bookmarkId.size() <= 128
+        && data.userId is string && data.userId == userId && data.userId == request.auth.uid
+        && data.videoId is string && data.videoId.size() <= 100
+        && (!('episodeTitle' in data) || (data.episodeTitle is string && data.episodeTitle.size() <= 200))
+        && (!('notes' in data) || (data.notes is string && data.notes.size() <= 1000))
+        && data.savedAt is string && data.savedAt.size() <= 50;
+    }
+
+    // User profile documents
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false; // Disallow querying user collections
+
+      allow create: if isOwner(userId)
+        && isValidId(userId)
+        && isValidUser(incoming());
+
+      allow update: if isOwner(userId)
+        && isValidId(userId)
+        && isValidUser(incoming())
+        && incoming().userId == existing().userId
+        && incoming().createdAt == existing().createdAt
+        && incoming().diff(existing()).affectedKeys().hasOnly(['username', 'displayName', 'phoneNumber', 'handle', 'channelName', 'bio', 'role', 'lastLogin']);
+
+      allow delete: if isOwner(userId) && isValidId(userId);
+
+      // Bookmarks subcollection
+      match /bookmarks/{bookmarkId} {
+        allow get, list: if isOwner(userId);
+
+        allow create: if isOwner(userId)
+          && isValidId(userId)
+          && isValidId(bookmarkId)
+          && isValidBookmark(incoming(), userId);
+
+        allow update: if isOwner(userId)
+          && isValidId(userId)
+          && isValidId(bookmarkId)
+          && isValidBookmark(incoming(), userId)
+          && incoming().userId == existing().userId
+          && incoming().bookmarkId == existing().bookmarkId
+          && incoming().savedAt == existing().savedAt
+          && incoming().diff(existing()).affectedKeys().hasOnly(['notes', 'episodeTitle']);
+
+        allow delete: if isOwner(userId) && isValidId(userId) && isValidId(bookmarkId);
+      }
+    }
+  }
+}

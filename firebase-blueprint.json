@@ -1,0 +1,113 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile document storing account metadata, username, and role",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Authentication UID"
+        },
+        "username": {
+          "type": "string",
+          "description": "Unique username chosen by the user",
+          "minLength": 3,
+          "maxLength": 50,
+          "pattern": "^[a-zA-Z0-9_.-]+$"
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address",
+          "format": "email"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the user",
+          "maxLength": 100
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Contact phone number (phno)",
+          "maxLength": 30
+        },
+        "handle": {
+          "type": "string",
+          "description": "YouTube or Creator handle e.g. @username",
+          "maxLength": 50
+        },
+        "channelName": {
+          "type": "string",
+          "description": "YouTube channel or brand name",
+          "maxLength": 100
+        },
+        "bio": {
+          "type": "string",
+          "description": "User or creator biography",
+          "maxLength": 500
+        },
+        "role": {
+          "type": "string",
+          "description": "Access role within the dynamics analysis suite",
+          "enum": ["analyst", "researcher", "viewer"]
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Account registration timestamp",
+          "format": "date-time"
+        },
+        "lastLogin": {
+          "type": "string",
+          "description": "Last successful login timestamp",
+          "format": "date-time"
+        }
+      },
+      "required": ["userId", "username", "email", "createdAt"]
+    },
+    "UserBookmark": {
+      "title": "UserBookmark",
+      "description": "Saved video trajectory analyses and research notes",
+      "type": "object",
+      "properties": {
+        "bookmarkId": {
+          "type": "string",
+          "description": "Unique bookmark record identifier"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the owner user"
+        },
+        "videoId": {
+          "type": "string",
+          "description": "Target video ID from the trajectory corpus"
+        },
+        "episodeTitle": {
+          "type": "string",
+          "description": "Title of the saved episode",
+          "maxLength": 200
+        },
+        "notes": {
+          "type": "string",
+          "description": "Custom analytical notes or hypothesis",
+          "maxLength": 1000
+        },
+        "savedAt": {
+          "type": "string",
+          "description": "Timestamp when bookmarked",
+          "format": "date-time"
+        }
+      },
+      "required": ["bookmarkId", "userId", "videoId", "savedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles indexed by Firebase Auth UID"
+    },
+    "/users/{userId}/bookmarks/{bookmarkId}": {
+      "schema": { "$ref": "#/entities/UserBookmark" },
+      "description": "Subcollection of saved video analyses for a specific user"
+    }
+  }
+}

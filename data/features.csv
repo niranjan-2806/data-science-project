@@ -1,0 +1,50 @@
+video_id,series_name,episode_title,growth_rate,peak_day,peak_value,decay_slope,volatility,total_views_30d,early_growth_3d
+real_mrbeast_vira_656,Real YouTube Mega-Creators,"$1,000,000 Survival Island Challenge (Viral Explosion)",-3.05,1,3420000,116689.66,196556.13,11219000,35.29
+yt_1001,AI Tech Pulse,Ep 1: Foundational Models in Production,11.89,29,53567,4837.0,2675.31,1195582,313.85
+yt_1002,The Deep Dive Podcast,Ep 2: High-Performance Vector Indexing,14.21,22,108386,2189.0,5421.52,2360458,405.5
+yt_1003,DevOps Horizon,Ep 3: Autonomous Agent Architectures,12.03,20,20115,385.5,1060.6,475489,637.72
+yt_1004,Future of Code,Ep 4: Distributed Cache Strategies,24.34,20,106076,1521.3,5981.72,2399371,961.72
+yt_1005,Data Systems Unpacked,Ep 5: Graph Neural Networks Demystified,71.02,20,80455,94.4,4366.53,1853444,4363.29
+yt_1006,Cyber Insights,Ep 6: Low-Latency Stream Processing,4388.26,20,107682,2158.5,6478.44,2499041,298813.33
+yt_1007,AI Tech Pulse,Ep 7: Zero-Trust Cloud Mesh Security,46.07,17,72544,1272.31,4044.54,1678179,1888.49
+yt_1008,The Deep Dive Podcast,Ep 8: Stateful Serverless Orchestration,9.75,28,12002,778.0,634.57,275004,181.73
+yt_1009,DevOps Horizon,Ep 9: Foundational Models in Production,18.13,21,105549,1255.67,5950.79,2348806,483.46
+yt_1010,Future of Code,Ep 10: High-Performance Vector Indexing,1322.71,22,33412,634.88,1790.85,740492,70653.33
+yt_1011,Data Systems Unpacked,Ep 11: Autonomous Agent Architectures,10.34,23,76480,2482.86,3912.6,1705993,366.34
+yt_1012,Cyber Insights,Ep 12: Distributed Cache Strategies,10.25,20,20157,277.8,1043.77,449615,310.02
+yt_1013,AI Tech Pulse,Ep 1: Foundational Models in Production,1770.69,2,46236,1627.04,3575.27,196454,124.93
+yt_1014,The Deep Dive Podcast,Ep 2: High-Performance Vector Indexing,1208.99,1,29253,1008.21,2142.72,115283,-20.68
+yt_1015,DevOps Horizon,Ep 3: Autonomous Agent Architectures,8639.27,1,124522,4293.34,7860.07,447484,-45.35
+yt_1016,Future of Code,Ep 4: Distributed Cache Strategies,7862.69,1,117547,3995.66,8437.49,397713,-38.23
+yt_1017,Data Systems Unpacked,Ep 5: Graph Neural Networks Demystified,344.7,2,15147,540.43,1080.56,60775,10.65
+yt_1018,Cyber Insights,Ep 6: Low-Latency Stream Processing,1466.05,2,26162,855.43,1887.48,105527,-0.07
+yt_1019,AI Tech Pulse,Ep 7: Zero-Trust Cloud Mesh Security,2396.41,2,54341,1876.93,4279.47,188993,262.11
+yt_1020,The Deep Dive Podcast,Ep 8: Stateful Serverless Orchestration,2595.9,1,36731,1266.07,2590.91,132873,-49.99
+yt_1021,DevOps Horizon,Ep 9: Foundational Models in Production,453.1,1,9457,306.14,666.87,32749,-79.97
+yt_1022,Future of Code,Ep 10: High-Performance Vector Indexing,1047.28,2,17107,599.29,1337.11,71380,107.6
+yt_1023,Data Systems Unpacked,Ep 11: Autonomous Agent Architectures,3627.61,1,44664,1445.72,3145.36,139033,-64.87
+yt_1024,Cyber Insights,Ep 12: Distributed Cache Strategies,2114.6,1,72341,2441.03,5192.94,280137,-10.03
+yt_1025,AI Tech Pulse,Ep 1: Foundational Models in Production,14.9,0,16616,553.37,1002.98,143532,-27.86
+yt_1026,The Deep Dive Podcast,Ep 2: High-Performance Vector Indexing,1316.38,0,69652,2268.77,3659.85,473290,-45.05
+yt_1027,DevOps Horizon,Ep 3: Autonomous Agent Architectures,938.23,0,101123,3242.13,5065.79,881492,-37.6
+yt_1028,Future of Code,Ep 4: Distributed Cache Strategies,-1.9,0,98430,3280.5,5402.85,890946,-31.51
+yt_1029,Data Systems Unpacked,Ep 5: Graph Neural Networks Demystified,3.34,0,21558,689.73,1195.96,202017,-24.78
+yt_1030,Cyber Insights,Ep 6: Low-Latency Stream Processing,206.69,0,12203,406.27,640.71,114748,-25.85
+yt_1031,AI Tech Pulse,Ep 7: Zero-Trust Cloud Mesh Security,146.29,0,113940,3797.5,6551.65,758860,-45.0
+yt_1032,The Deep Dive Podcast,Ep 8: Stateful Serverless Orchestration,1547.5,1,55500,1841.07,3272.43,493589,-34.34
+yt_1033,DevOps Horizon,Ep 9: Foundational Models in Production,3046.75,0,58961,1844.67,3968.83,431263,-39.34
+yt_1034,Future of Code,Ep 10: High-Performance Vector Indexing,4612.87,0,116837,3235.73,6785.74,806595,-38.56
+yt_1035,Data Systems Unpacked,Ep 11: Autonomous Agent Architectures,12.35,0,60465,1846.5,3573.81,584297,-26.75
+yt_1036,Cyber Insights,Ep 12: Distributed Cache Strategies,-5.85,0,80104,2607.8,4283.22,613819,-38.86
+yt_1037,AI Tech Pulse,Ep 1: Foundational Models in Production,2844.12,1,67275,2283.59,8639.25,579631,-99.95
+yt_1038,The Deep Dive Podcast,Ep 2: High-Performance Vector Indexing,3373.23,1,52896,1823.48,6606.19,464568,-51.98
+yt_1039,DevOps Horizon,Ep 3: Autonomous Agent Architectures,562.93,1,39020,1345.0,5014.59,423399,-0.34
+yt_1040,Future of Code,Ep 4: Distributed Cache Strategies,1035.7,2,42417,1514.36,4797.63,404254,10.36
+yt_1041,Data Systems Unpacked,Ep 5: Graph Neural Networks Demystified,170.66,1,6024,200.59,686.13,55642,-13.47
+yt_1042,Cyber Insights,Ep 6: Low-Latency Stream Processing,124.3,1,13420,462.24,1607.5,123965,79.54
+yt_1043,AI Tech Pulse,Ep 7: Zero-Trust Cloud Mesh Security,3071.89,2,88269,2968.25,10150.72,915030,5.89
+yt_1044,The Deep Dive Podcast,Ep 8: Stateful Serverless Orchestration,1999.52,1,66635,1865.66,7932.15,727061,-62.74
+yt_1045,DevOps Horizon,Ep 9: Foundational Models in Production,4086.48,1,63392,1863.14,8256.49,578236,-52.4
+yt_1046,Future of Code,Ep 10: High-Performance Vector Indexing,4582.49,2,72010,2495.36,9160.48,749791,68.35
+yt_1047,Data Systems Unpacked,Ep 11: Autonomous Agent Architectures,549.02,1,18408,634.1,2209.73,165623,-22.71
+yt_1048,Cyber Insights,Ep 12: Distributed Cache Strategies,1874.98,1,37946,1242.28,4689.7,309889,-23.93

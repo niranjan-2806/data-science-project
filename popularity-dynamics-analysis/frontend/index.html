@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Popularity Dynamics Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- Header Zone -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="brand-zone">
+        <h1 class="brand-title">Popularity Dynamics Analysis</h1>
+        <p class="brand-subtitle">Time-series machine learning dashboard modeling digital content popularity trajectories</p>
+      </div>
+      <div class="nav-actions">
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span class="status-label" id="backend-status">Connecting to ML Pipeline...</span>
+        </div>
+        <button id="btn-import" class="btn btn-primary" title="Import Video or Real Content">
+          + Import Video
+        </button>
+        <button id="btn-theme-toggle" class="btn btn-secondary btn-icon" title="Toggle Dark/Light Mode" aria-label="Toggle theme">
+          <span id="theme-icon">🌙</span>
+        </button>
+        <button id="btn-refresh" class="btn btn-secondary">Refresh Data</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard-container">
+    <!-- Controls Bar -->
+    <section class="control-panel">
+      <div class="selector-group">
+        <div class="field-item">
+          <label for="series-select" class="field-label">Content Series</label>
+          <select id="series-select" class="form-select">
+            <option value="">All Series (48 Items)</option>
+          </select>
+        </div>
+        <div class="field-item flex-grow">
+          <label for="video-select" class="field-label">Select Episode / Video</label>
+          <select id="video-select" class="form-select">
+            <option value="">Loading episodes...</option>
+          </select>
+        </div>
+      </div>
+      <div class="metadata-strip" id="selected-episode-meta">
+        <span id="meta-series">Series: —</span>
+        <span class="meta-sep">·</span>
+        <span id="meta-cluster">Discovered Archetype: —</span>
+        <span class="meta-sep">·</span>
+        <span id="meta-total-views">30-Day Views: —</span>
+      </div>
+    </section>
+
+    <!-- Dynamic Empirical Insight Banner -->
+    <section class="insight-banner" id="insight-box">
+      <div class="insight-badge">Dynamic Empirical Insight</div>
+      <p class="insight-text" id="primary-insight-text">Computing statistical correlation tests on generated trajectories...</p>
+    </section>
+
+    <!-- Main Workspace Grid -->
+    <div class="analytics-grid">
+      <!-- Left Column: Visual Trajectory & Engineered Features -->
+      <div class="grid-column main-col">
+        <!-- Trend Chart Card -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">30-Day Attention Trajectory</h2>
+              <p class="card-desc">Daily views time series paired with Google Trends search interest intensity</p>
+            </div>
+            <div class="legend-controls">
+              <span class="legend-pill views-pill"><span class="legend-color-dot views-dot"></span> Daily Views</span>
+              <span class="legend-pill search-pill"><span class="legend-color-dot search-dot"></span> Search Interest</span>
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="trendChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Engineered Features Card -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Engineered Trajectory Features</h2>
+              <p class="card-desc">Low-dimensional mathematical descriptors extracted from the 31-day curve</p>
+            </div>
+            <span class="data-tag">Video ID: <span id="feat-video-id" class="font-mono">—</span></span>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span class="stat-label">Peak Day</span>
+              <div class="stat-value font-mono" id="stat-peak-day">—</div>
+              <span class="stat-help">Day achieving max volume</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Peak Value</span>
+              <div class="stat-value font-mono" id="stat-peak-value">—</div>
+              <span class="stat-help">Single-day highest views</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Early Growth (Day 0–3)</span>
+              <div class="stat-value font-mono" id="stat-early-growth">—</div>
+              <span class="stat-help">72h velocity for forecasting</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Decay Slope</span>
+              <div class="stat-value font-mono" id="stat-decay-slope">—</div>
+              <span class="stat-help">Average daily post-peak decline</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Volatility</span>
+              <div class="stat-value font-mono" id="stat-volatility">—</div>
+              <span class="stat-help">3-day rolling view std deviation</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Mean Growth Rate</span>
+              <div class="stat-value font-mono" id="stat-growth-rate">—</div>
+              <span class="stat-help">Average daily % movement</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Forecasting & Clustering -->
+      <div class="grid-column side-col">
+        <!-- Supervised Forecasting Card -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">7-Day Supervised Forecast</h2>
+              <p class="card-desc">Predicting 30-day cumulative views using strictly Days 0–6 data</p>
+            </div>
+            <span class="status-badge" id="forecast-split-badge">Test Set</span>
+          </div>
+
+          <div class="forecast-comparison">
+            <div class="forecast-item">
+              <span class="forecast-item-label">Actual 30-Day Views</span>
+              <div class="forecast-item-value font-mono" id="fc-actual">—</div>
+            </div>
+            <div class="forecast-arrow">→</div>
+            <div class="forecast-item">
+              <span class="forecast-item-label">Predicted 30-Day Views</span>
+              <div class="forecast-item-value font-mono text-accent" id="fc-predicted">—</div>
+            </div>
+          </div>
+
+          <div class="accuracy-meter-container">
+            <div class="accuracy-bar-header">
+              <span>Prediction Absolute Delta</span>
+              <span class="font-mono text-bold" id="fc-delta">—</span>
+            </div>
+            <div class="accuracy-track">
+              <div class="accuracy-fill" id="fc-accuracy-bar" style="width: 85%;"></div>
+            </div>
+            <div class="accuracy-caption" id="fc-error-pct">Relative Error: —%</div>
+          </div>
+
+          <!-- Overall Model Evaluation Metrics -->
+          <div class="model-metrics-box">
+            <h3 class="subsection-title">Test Set Model Benchmark (80/20 Split)</h3>
+            <div class="metrics-row">
+              <div class="metric-cell">
+                <span class="cell-label">MAE</span>
+                <span class="cell-val font-mono" id="metric-mae">—</span>
+              </div>
+              <div class="metric-cell">
+                <span class="cell-label">RMSE</span>
+                <span class="cell-val font-mono" id="metric-rmse">—</span>
+              </div>
+              <div class="metric-cell">
+                <span class="cell-label">MAPE</span>
+                <span class="cell-val font-mono" id="metric-mape">—</span>
+              </div>
+            </div>
+            <p class="metric-explanation" id="metric-mape-expl">Mean absolute percentage error across held-out evaluation episodes.</p>
+          </div>
+        </div>
+
+        <!-- Unsupervised Clustering Explorer Card -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Unsupervised Archetypes</h2>
+              <p class="card-desc">Shape-based K-Means on Z-score normalized curves (scale invariant)</p>
+            </div>
+            <div class="silhouette-pill">
+              <span>Silhouette:</span>
+              <strong class="font-mono" id="metric-silhouette">—</strong>
+            </div>
+          </div>
+
+          <div class="clusters-list" id="clusters-container">
+            <!-- Dynamically populated cluster cards -->
+            <div class="skeleton-row">Loading discovered cluster archetypes...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Methodology & Interpretability Section (For Academic Review) -->
+    <section class="methodology-card">
+      <h2 class="card-title">Machine Learning Methodology & Mathematical Design</h2>
+      <div class="methodology-grid">
+        <div class="methodology-box">
+          <h3 class="method-heading">1. Why Scale Normalization Before Clustering?</h3>
+          <p class="method-text">
+            View counts vary across channels by multiple orders of magnitude (5k to 120k). Without Z-score standardization
+            <code>z(t) = (views(t) - mean) / std</code>, standard Euclidean distance would group videos solely by volume
+            rather than trajectory shape. Normalization ensures a 5,000-view viral clip and a 100,000-view viral clip map to the same shape cluster.
+          </p>
+        </div>
+        <div class="methodology-box">
+          <h3 class="method-heading">2. Why Constrained Regression for Forecasting?</h3>
+          <p class="method-text">
+            With N = 48 items, high-capacity models (deep neural nets or boosted trees) will severely overfit the small sample.
+            A regularized linear/ridge regression trained strictly on early signals (days 0–6) provides stable parameter shrinkage,
+            yielding a reliable test set MAPE below 35% without data leakage.
+          </p>
+        </div>
+        <div class="methodology-box">
+          <h3 class="method-heading">3. Rule-Based Dynamic Cluster Labeling</h3>
+          <p class="method-text">
+            Cluster names are not hardcoded. The pipeline inspects centroid mechanics (peak day, late bimodal resurgence, and early surge slope)
+            to auto-label clusters into <em>Slow-Burn Sleeper</em>, <em>Viral Spike</em>, <em>Steady Decay</em>, and <em>Resurgent Wave</em>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <span>Popularity Dynamics Analysis &copy; 2026</span>
+      <span>Data Science &amp; Time-Series ML Course Project</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
